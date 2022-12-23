@@ -57,7 +57,7 @@
       },
       {
         "selector": "typeLike",
-        "format": ["UPPER_CASE"]
+        "format": ["UPPER_CASE", "PascalCase"]
         // "suffix": ["Props"]  // Need to discuss with the team
       },
       {
