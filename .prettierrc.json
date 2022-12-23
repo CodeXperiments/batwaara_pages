@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "tabWidth": 2,
+  "semi": true,
+  "quoteProps": "preserve",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "singleQuote": false
+}
