@@ -19,7 +19,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": "off",
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "eqeqeq": "error",
@@ -118,6 +118,7 @@
     "no-throw-literal": "off",
     "@typescript-eslint/no-throw-literal": "error",
     "require-await": "off",
-    "@typescript-eslint/require-await": "error"
+    "@typescript-eslint/require-await": "error",
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }
