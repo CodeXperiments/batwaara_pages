@@ -7,14 +7,24 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   swcMinify: true,
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
   },
-  experimental: {
-    appDir: true,
+  // experimental: {
+  //   appDir: true,
+  // },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 export default config;
