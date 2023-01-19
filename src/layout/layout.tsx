@@ -10,13 +10,12 @@ export const ProtectRoute: any = ({ children }: { children: ReactNode }) => {
   const publicRoutes: Array<string> = ["/login", "/signup"];
 
   if (status === "authenticated" && publicRoutes.includes(router.pathname)) {
-    // router.back();
     void router.replace("/");
   } else if (
     status === "unauthenticated" &&
     !publicRoutes.includes(router.pathname)
   ) {
-    router.back();
+    void router.replace("/login");
   } else if (status === "loading") {
     return <CustomLoader />;
   }
