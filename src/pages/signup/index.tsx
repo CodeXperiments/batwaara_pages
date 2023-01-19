@@ -2,23 +2,29 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import CustomButton from "../../components/Buttons/CustomButton";
+import CustomLoader from "../../components/CustomLoader";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
   const { status } = useSession();
 
   if (status === "authenticated") {
-    return null;
+    return <></>;
   } else if (status === "loading") {
-    return <>Loading....</>;
+    return <CustomLoader />;
   }
 
   return (
     <>
       <div>SignUp</div>
-      <button onClick={async (): Promise<boolean> => router.push("/login")}>
-        To Login
-      </button>
+
+      <CustomButton
+        text="To login"
+        onClick={async (): Promise<boolean> => router.push("/login")}
+        radius="xl"
+        variant="filled"
+      />
     </>
   );
 };

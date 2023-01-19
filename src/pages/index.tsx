@@ -1,28 +1,36 @@
 import { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React from "react";
+import CustomButton from "../components/Buttons/CustomButton";
 
 const Dashboard: NextPage = () => {
   const { data } = useSession();
+  const router = useRouter();
 
   return (
     <>
-      <h1 className="m-5 text-center text-3xl font-bold text-cyan-500 md:text-cyan-700">
+      <h1 className={"mt-5 text-center text-3xl font-bold text-cyan-500"}>
         Dashboard
       </h1>
-      <h6 className="text-center text-xl font-bold ">
+      <h6 className="my-5 text-center text-xl font-bold ">
         Welcome, {data?.user?.name} !
       </h6>
 
-      <div className="m-5 flex w-full justify-center">
-        <button
-          className="rounded bg-cyan-300 p-3 shadow-xl"
+      <div className=" flex w-full justify-center">
+        <CustomButton
+          text="Let me out"
+          variant="filled"
+          className="mr-5 p-3 shadow-xl"
           onClick={async (): Promise<void> =>
             signOut({ "callbackUrl": "/login" })
           }
-        >
-          Let me out
-        </button>
+        />
+        <CustomButton
+          text="To about"
+          className="p-3 shadow-xl"
+          onClick={async (): Promise<boolean> => router.push("/about")}
+        />
       </div>
     </>
   );
