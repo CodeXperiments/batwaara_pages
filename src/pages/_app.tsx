@@ -30,9 +30,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
           withGlobalStyles
           withNormalizeCSS
           theme={{
-            "colors": { "brand": ["#27A4A6", "#40F2A6"] },
+            "colors": { "brand": ["#27A4A6", "#40F2A6", "#000000"] },
             "primaryColor": "brand",
-            // "fontFamily": "Open Sans, sans-serif",
           }}
         >
           <RouterTransition />
