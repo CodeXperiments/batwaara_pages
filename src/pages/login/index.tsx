@@ -4,14 +4,15 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../../utils/trpc";
 import { useRouter } from "next/router";
+import CustomLoader from "../../components/CustomLoader";
 
 const Login: NextPage = () => {
   const { status } = useSession();
   if (status === "authenticated") {
-    return null;
+    return <></>;
   }
   if (status === "loading") {
-    return <>Loading....</>;
+    return <CustomLoader />;
   }
   return (
     <>

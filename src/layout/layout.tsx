@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
+import CustomLoader from "../components/CustomLoader";
 
 export const ProtectRoute: any = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
@@ -9,12 +10,15 @@ export const ProtectRoute: any = ({ children }: { children: ReactNode }) => {
   const publicRoutes: Array<string> = ["/login", "/signup"];
 
   if (status === "authenticated" && publicRoutes.includes(router.pathname)) {
+    // router.back();
     void router.replace("/");
   } else if (
     status === "unauthenticated" &&
     !publicRoutes.includes(router.pathname)
   ) {
-    void router.replace("/login");
+    router.back();
+  } else if (status === "loading") {
+    return <CustomLoader />;
   }
 
   return children;

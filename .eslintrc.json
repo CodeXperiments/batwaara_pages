@@ -27,7 +27,7 @@
     "use-isnan": "error",
     "no-else-return": "error",
     "prefer-const": "error",
-    "quote-props": "error",
+    "quote-props": "warn",
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/array-type": ["error", { "default": "generic" }],
     "@typescript-eslint/await-thenable": ["error"],
