@@ -5,7 +5,7 @@ import React from "react";
 import CustomButton from "../components/Buttons/CustomButton";
 
 const Dashboard: NextPage = () => {
-  const { data } = useSession();
+  const session = useSession();
   const router = useRouter();
 
   return (
@@ -14,7 +14,7 @@ const Dashboard: NextPage = () => {
         Dashboard
       </h1>
       <h6 className="my-5 text-center text-xl font-bold ">
-        Welcome, {data?.user?.name} !
+        Welcome, {session.data?.user?.name} !
       </h6>
 
       <div className=" flex w-full justify-center">
