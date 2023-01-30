@@ -6,7 +6,7 @@ import CustomButton from "../components/Buttons/CustomButton";
 import { trpc } from "../utils/trpc";
 
 const Dashboard: NextPage = () => {
-  const { data } = useSession();
+  const session = useSession();
   const router = useRouter();
 
   const [isPageLoading, setPageIsLoading] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const Dashboard: NextPage = () => {
         Dashboard
       </h1>
       <h6 className="my-5 text-center text-xl font-bold ">
-        Welcome, {data?.user?.name} !
+        Welcome, {session.data?.user?.name} !
       </h6>
 
       <div className=" flex w-full justify-center">

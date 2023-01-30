@@ -8,7 +8,6 @@ const appendCache = createEmotionCache({ "key": "mantine", "prepend": false });
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
-import { ProtectRoute } from "../layout/layout";
 import { Lato } from "@next/font/google";
 import RouterTransition from "../components/RouterTransistion";
 
@@ -35,9 +34,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           }}
         >
           <RouterTransition />
-          <ProtectRoute>
-            <Component {...pageProps} />
-          </ProtectRoute>
+          <Component {...pageProps} />
         </MantineProvider>
       </SessionProvider>
     </main>

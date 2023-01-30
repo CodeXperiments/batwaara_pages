@@ -1,22 +1,19 @@
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import CustomButton from "../../components/Buttons/CustomButton";
-import CustomLoader from "../../components/CustomLoader";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
-  const { status } = useSession();
-
-  if (status === "authenticated") {
-    return <></>;
-  } else if (status === "loading") {
-    return <CustomLoader />;
-  }
 
   return (
     <>
+      <Head>
+        <title>SignUp</title>
+        <meta property="og:title" content="SignUp" key="title" />
+      </Head>
       <div>SignUp</div>
 
       <CustomButton
@@ -27,6 +24,22 @@ const SignUp: NextPage = () => {
       />
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (session?.user) {
+    return {
+      "redirect": {
+        "permanent": false,
+        "destination": "/",
+      },
+    };
+  }
+
+  return {
+    "props": {},
+  };
 };
 
 export default SignUp;
