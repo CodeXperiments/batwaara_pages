@@ -1,12 +1,33 @@
 import { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../components/Buttons/CustomButton";
+import { trpc } from "../utils/trpc";
 
 const Dashboard: NextPage = () => {
   const { data } = useSession();
   const router = useRouter();
+
+  const [isPageLoading, setPageIsLoading] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<any>();
+
+  const userData = {
+    "email": "rrchampavat007@gmail.com",
+    "password": "Test@123",
+  };
+
+  const handleSubmit = () => {
+    const { mutate, isLoading, error } = trpc.auth.registerUser.useMutation();
+
+    setPageIsLoading(isLoading);
+    setErrorMsg(error);
+
+    mutate({
+      "email": "rrchampavat007@gmail.com",
+      "password": "Test@123",
+    });
+  };
 
   return (
     <>
@@ -31,6 +52,15 @@ const Dashboard: NextPage = () => {
           className="p-3 shadow-xl"
           onClick={async (): Promise<boolean> => router.push("/about")}
         />
+
+        <CustomButton
+          text="Register"
+          className="p-3 shadow-xl"
+          onClick={handleSubmit}
+          isLoading={isPageLoading}
+        />
+
+        {errorMsg && <p>Error while register : {errorMsg?.message}</p>}
       </div>
     </>
   );

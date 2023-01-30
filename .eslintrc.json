@@ -16,7 +16,11 @@
     "sourceType": "module",
     "project": ["./tsconfig.json"]
   },
-  "plugins": ["@typescript-eslint"],
+  "settings": {
+    "snakecasejs/filter": ["ClassDeclaration", "NewExpression"],
+    "snakecasejs/whitelist": ["externalPath", "setNumber"]
+  },
+  "plugins": ["@typescript-eslint", "snakecasejs"],
   "rules": {
     "indent": ["error", 2],
     "linebreak-style": "off",
@@ -28,6 +32,7 @@
     "no-else-return": "error",
     "prefer-const": "error",
     "quote-props": "warn",
+    "snakecasejs/snakecasejs": "error",
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/array-type": ["error", { "default": "generic" }],
     "@typescript-eslint/await-thenable": ["error"],
@@ -51,7 +56,7 @@
       "error",
       {
         "selector": "default",
-        "format": ["camelCase", "PascalCase"],
+        "format": ["camelCase", "PascalCase", "snake_case"],
         "leadingUnderscore": "allow",
         "trailingUnderscore": "forbid"
       },
