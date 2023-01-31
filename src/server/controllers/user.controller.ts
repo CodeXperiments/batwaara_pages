@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { UserRegisterInput } from "../schema/user.schema";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -14,19 +15,16 @@ export const userRegister = async ({ input }: { input: UserRegisterInput }) => {
   }
 
   try {
+    const hashedPw = await bcrypt.hash(password, 10);
+
     const user = await prisma.user.create({
       "data": {
-        "email": input.email,
-        "password": input.password,
+        "email": email,
+        "password": hashedPw,
       },
     });
 
-    return {
-      "status": "success",
-      "data": {
-        user,
-      },
-    };
+    return user;
   } catch (error: any) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
