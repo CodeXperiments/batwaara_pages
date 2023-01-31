@@ -15,12 +15,12 @@ export const userRegister = async ({ input }: { input: UserRegisterInput }) => {
   }
 
   try {
-    const hashedPw = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
       "data": {
         "email": email,
-        "password": hashedPw,
+        "password": hashedPassword,
       },
     });
 
@@ -30,7 +30,7 @@ export const userRegister = async ({ input }: { input: UserRegisterInput }) => {
       if (error.code === "P2002") {
         throw new TRPCError({
           code: "CONFLICT",
-          message: "Note with that title already exists",
+          message: "Email ID is already registered",
         });
       }
     }

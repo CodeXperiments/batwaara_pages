@@ -3,9 +3,6 @@ import { z } from "zod";
 const passwordRegEx = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/g;
 
 export const userRegisterSchema = z.object({
-  // "id": z.string({
-  //   "required_error": "Id is required",
-  // }),
   "email": z
     .string({
       "required_error": "Email is required",
