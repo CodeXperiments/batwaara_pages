@@ -54,7 +54,7 @@ const Dashboard: NextPage = () => {
           isLoading={isLoading}
         />
 
-        {error && <pre>{JSON.stringify(data, null, 0)}</pre>} */}
+        {error && <pre>{error.message}</pre>} */}
       </div>
     </>
   );
