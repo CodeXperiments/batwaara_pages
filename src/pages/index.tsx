@@ -1,12 +1,26 @@
 import { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React from "react";
 import CustomButton from "../components/Buttons/CustomButton";
+import { trpc } from "../utils/trpc";
 
 const Dashboard: NextPage = () => {
   const session = useSession();
   const router = useRouter();
+
+  // !Keep the below commented code for future reference
+
+  // const userData = {
+  //   "email": "rrchampavat007@gmail.com",
+  //   "password": "Test@123",
+  // };
+
+  // const { mutate, isLoading, error, data } =
+  //   trpc.auth.registerUser.useMutation();
+
+  // const handleSubmit = () => {
+  //   mutate(userData);
+  // };
 
   return (
     <>
@@ -17,7 +31,7 @@ const Dashboard: NextPage = () => {
         Welcome, {session.data?.user?.name} !
       </h6>
 
-      <div className=" flex w-full justify-center">
+      <div className="flex w-full justify-center">
         <CustomButton
           text="Let me out"
           variant="filled"
@@ -26,11 +40,21 @@ const Dashboard: NextPage = () => {
             signOut({ "callbackUrl": "/login" })
           }
         />
+
         <CustomButton
           text="To about"
           className="p-3 shadow-xl"
           onClick={async (): Promise<boolean> => router.push("/about")}
         />
+
+        {/* <CustomButton
+          text="Register"
+          className="p-3 shadow-xl"
+          onClick={handleSubmit}
+          isLoading={isLoading}
+        />
+
+        {error && <pre>{JSON.stringify(data, null, 0)}</pre>} */}
       </div>
     </>
   );
