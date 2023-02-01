@@ -1,5 +1,5 @@
 import { userRegister } from "../../controllers/user.controller";
-import { userRegisterSchema } from "../../schema/user.schema";
+import { userLoginSchema, userRegisterSchema } from "../../schema/user.schema";
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 export const authRouter = router({

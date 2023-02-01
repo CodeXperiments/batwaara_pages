@@ -11,15 +11,28 @@ const Dashboard: NextPage = () => {
   // !Keep the below commented code for future reference
 
   // const userData = {
+  //   "name": "impress1on",
   //   "email": "rrchampavat007@gmail.com",
   //   "password": "Test@123",
   // };
 
-  // const { mutate, isLoading, error, data } =
-  //   trpc.auth.registerUser.useMutation();
+  // const {
+  //   mutate: registerMutate,
+  //   isLoading,
+  //   error,
+  //   data,
+  // } = trpc.auth.registerUser.useMutation();
+
+  // const {
+  //   mutate: loginMutate,
+  // isLoading,
+  // error,
+  // data,
+  // } = trpc.auth.loginUser.useMutation();
 
   // const handleSubmit = () => {
-  //   mutate(userData);
+  //   registerMutate(userData);
+  // loginMutate(userData);
   // };
 
   return (
@@ -54,7 +67,7 @@ const Dashboard: NextPage = () => {
           isLoading={isLoading}
         />
 
-        {error && <pre>{error.message}</pre>} */}
+        {error && <pre>{JSON.stringify(error.message, null, 0)}</pre>} */}
       </div>
     </>
   );
