@@ -37,9 +37,7 @@ export const authOptions: NextAuthOptions = {
         },
         "password": { "label": "Password", "type": "password" },
       },
-      // !Need to check type of authorize function
-      // @ts-expect-error
-      "authorize": async (credentials) => {
+      "authorize": async (credentials): Promise<any> => {
         const exitingUser = await prisma.user.findUnique({
           "where": {
             "email": credentials?.email,
@@ -49,7 +47,7 @@ export const authOptions: NextAuthOptions = {
         if (exitingUser?.email) {
           const match = await bcrypt.compare(
             credentials?.password!,
-            exitingUser.password!
+            exitingUser?.password!
           );
 
           if (!match) {
@@ -57,16 +55,15 @@ export const authOptions: NextAuthOptions = {
           }
 
           const user = {
-            "email": exitingUser.email,
-            "name": exitingUser.name,
-            "image": exitingUser.image,
-            "emailVerified": exitingUser.emailVerified,
+            "email": exitingUser?.email,
+            "name": exitingUser?.name,
+            "image": exitingUser?.image,
+            "emailVerified": exitingUser?.emailVerified,
           };
 
           return user;
-        } else {
-          return null;
         }
+        return null;
       },
     }),
   ],
