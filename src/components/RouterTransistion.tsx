@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-// components/RouterTransition.tsx
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import {

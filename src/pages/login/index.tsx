@@ -14,6 +14,7 @@ import {
 } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import { BuiltInProviderType } from "next-auth/providers";
+import Button from "../../components/Buttons/Button";
 
 const SignIn: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -33,20 +34,25 @@ const SignIn: NextPage<
         {providers &&
           Object.values(providers).map((provider) => (
             <div key={provider.name}>
-              <button
+              <Button
+                text={`Sign in with ${provider.name}`}
                 className="flex items-center justify-center rounded-md bg-slate-200 p-4 shadow-lg"
                 onClick={async (): Promise<SignInResponse | undefined> =>
                   await signIn(provider.id, {
                     "callbackUrl": callback ?? "/",
                   })
                 }
-              >
-                <p className=" text-xl text-slate-800">
-                  Sign in with {provider.name}
-                </p>
-              </button>
+              />
             </div>
           ))}
+        <Button
+          text="Sign in with Email"
+          className="flex items-center justify-center rounded-md bg-slate-200 p-4 shadow-lg"
+          onClick={async (): Promise<SignInResponse | undefined> =>
+            await signIn("email")
+          }
+          variant="filled"
+        />
       </div>
     </>
   );
