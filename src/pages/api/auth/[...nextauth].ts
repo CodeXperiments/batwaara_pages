@@ -9,8 +9,9 @@ import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   "pages": {
-    // "signIn": "/login",
+    "signIn": "/login",
     // signOut: "/auth/signout",
+    "error": "/login",
   },
   "jwt": {
     "maxAge": 60 * 60 * 24 * 30,
@@ -38,32 +39,35 @@ export const authOptions: NextAuthOptions = {
         "password": { "label": "Password", "type": "password" },
       },
       "authorize": async (credentials): Promise<any> => {
-        const exitingUser = await prisma.user.findUnique({
-          "where": {
-            "email": credentials?.email,
-          },
-        });
+        try {
+          const exitingUser = await prisma.user.findUnique({
+            "where": {
+              "email": credentials?.email,
+            },
+          });
 
-        if (exitingUser?.email) {
-          const match = await bcrypt.compare(
-            credentials?.password!,
-            exitingUser?.password!
-          );
+          if (exitingUser?.email) {
+            const match = await bcrypt.compare(
+              credentials?.password!,
+              exitingUser?.password!
+            );
 
-          if (!match) {
-            throw new Error("Provided credentials do not match!");
+            if (!match) {
+              throw new Error("Provided credentials do not match!");
+            }
+
+            const user = {
+              "email": exitingUser?.email,
+              "name": exitingUser?.name,
+              "image": exitingUser?.image,
+              "emailVerified": exitingUser?.emailVerified,
+            };
+
+            return user;
           }
-
-          const user = {
-            "email": exitingUser?.email,
-            "name": exitingUser?.name,
-            "image": exitingUser?.image,
-            "emailVerified": exitingUser?.emailVerified,
-          };
-
-          return user;
+        } catch (error) {
+          throw new Error("Provided credentials do not match!");
         }
-        return null;
       },
     }),
   ],
