@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import CustomButton from "../../components/Buttons/CustomButton";
+import Button from "../../components/Buttons/Button";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const SignUp: NextPage = () => {
       </Head>
       <div>SignUp</div>
 
-      <CustomButton
+      <Button
         text="To login"
         onClick={async (): Promise<boolean> => router.push("/login")}
         radius="xl"

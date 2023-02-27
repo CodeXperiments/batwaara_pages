@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import CustomButton from "../components/Buttons/CustomButton";
+import Button from "../components/Buttons/Button";
 import { trpc } from "../utils/trpc";
 
 const Dashboard: NextPage = () => {
@@ -18,21 +18,21 @@ const Dashboard: NextPage = () => {
 
   // const {
   //   mutate: registerMutate,
-  //   isLoading,
+  //   isLoading: regLoading,
   //   error,
   //   data,
   // } = trpc.auth.registerUser.useMutation();
 
   // const {
-  //   mutate: loginMutate,
-  // isLoading,
+  // mutate: loginMutate,
+  // isLoading: loginLoading,
   // error,
   // data,
   // } = trpc.auth.loginUser.useMutation();
 
   // const handleSubmit = () => {
   //   registerMutate(userData);
-  // loginMutate(userData);
+  //   loginMutate(userData);
   // };
 
   return (
@@ -46,7 +46,7 @@ const Dashboard: NextPage = () => {
       <h6 className="my-5 text-center font-semibold">{data?.user?.email}</h6>
 
       <div className="flex w-full justify-center">
-        <CustomButton
+        <Button
           text="Let me out"
           variant="filled"
           className="mr-5 p-3 shadow-xl"
@@ -55,20 +55,20 @@ const Dashboard: NextPage = () => {
           }
         />
 
-        <CustomButton
+        <Button
           text="To about"
           className="p-3 shadow-xl"
           onClick={async (): Promise<boolean> => router.push("/about")}
         />
 
-        {/* <CustomButton
+        {/* <Button
           text="Register"
           className="p-3 shadow-xl"
           onClick={handleSubmit}
-          isLoading={isLoading}
-        />
+          loading={regLoading}
+        /> */}
 
-        {error && <pre>{JSON.stringify(error.message, null, 0)}</pre>} */}
+        {/* {error && <pre>{JSON.stringify(error.message, null, 0)}</pre>} */}
       </div>
     </>
   );
