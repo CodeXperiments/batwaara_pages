@@ -40,6 +40,10 @@ export const authOptions: NextAuthOptions = {
       },
       "authorize": async (credentials): Promise<any> => {
         try {
+          if (!credentials?.email || !credentials.password) {
+            throw new Error("Please provide all required fields!");
+          }
+
           const exitingUser = await prisma.user.findUnique({
             "where": {
               "email": credentials?.email,
@@ -66,7 +70,7 @@ export const authOptions: NextAuthOptions = {
             return user;
           }
         } catch (error) {
-          throw new Error("Provided credentials do not match!");
+          throw error || new Error("Something went wrong!");
         }
       },
     }),
