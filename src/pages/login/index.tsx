@@ -15,7 +15,7 @@ import {
 import { NextRouter, useRouter } from "next/router";
 import { BuiltInProviderType } from "next-auth/providers";
 import { Alert, Box, Input, PasswordInput } from "@mantine/core";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 interface FormProps {
   email: string;
@@ -31,14 +31,14 @@ const SignIn: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ providers }) => {
   const {
-    "query": { callbackUrl, error },
+    "query": { callbackUrl },
   }: NextRouter = useRouter();
 
   const callback = callbackUrl as string | undefined;
 
   const [formValue, setFormValue] = useState<FormProps>(initialState);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValue((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -46,12 +46,18 @@ const SignIn: NextPage<
   };
 
   const handleLogin = async () => {
-    await signIn("credentials", {
+    const result = await signIn("credentials", {
       "email": formValue.email,
       "password": formValue.password,
-      // "redirect": true, // !This refreshes page
+      "redirect": false, // !This refreshes page
       // "callbackUrl": "/",
     });
+    if (result?.error) {
+      // TODO: Handle Error
+      console.log(result?.error);
+    } else {
+      window.location.replace((callbackUrl as string) || "/");
+    }
   };
 
   return (
@@ -63,9 +69,9 @@ const SignIn: NextPage<
       <div className="flex h-screen flex-col items-center justify-center gap-4">
         <Input.Wrapper label="Email" required>
           <Input
+            name="email"
             placeholder="example@gmail.com"
             variant="filled"
-            name="email"
             onChange={handleChange}
             value={formValue.email}
           />
@@ -81,12 +87,6 @@ const SignIn: NextPage<
             required
           />
         </Input.Wrapper>
-
-        {error && (
-          <Alert title="Login Error" color="red">
-            {error}
-          </Alert>
-        )}
 
         <Box display={"flex"}>
           <button
