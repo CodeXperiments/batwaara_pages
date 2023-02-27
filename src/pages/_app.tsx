@@ -11,7 +11,7 @@ import { trpc } from "../utils/trpc";
 import "../styles/globals.css";
 import RouterTransition from "../components/RouterTransistion";
 
-const cooper = localFont({
+const chromatica = localFont({
   src: "../../public/fonts/Chromatica-Regular.woff2",
 });
 
@@ -20,7 +20,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   "pageProps": { session, ...pageProps },
 }) => {
   return (
-    <main className={`${cooper.className}`}>
+    <main className={`${chromatica.className}`}>
       <SessionProvider session={session}>
         <MantineProvider
           emotionCache={appendCache}

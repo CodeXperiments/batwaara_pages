@@ -46,14 +46,12 @@ const SignIn: NextPage<
   };
 
   const handleLogin = async () => {
-    const temp = await signIn("credentials", {
+    await signIn("credentials", {
       "email": formValue.email,
       "password": formValue.password,
       // "redirect": true, // !This refreshes page
       // "callbackUrl": "/",
     });
-
-    console.log("first", temp);
   };
 
   return (
