@@ -5,7 +5,7 @@ import Button from "../components/Buttons/Button";
 import { trpc } from "../utils/trpc";
 
 const Dashboard: NextPage = () => {
-  const session = useSession();
+  const { data } = useSession();
   const router = useRouter();
 
   // !Keep the below commented code for future reference
@@ -37,12 +37,13 @@ const Dashboard: NextPage = () => {
 
   return (
     <>
-      <h1 className={"mt-5 text-center text-3xl font-bold text-cyan-500"}>
+      <h1 className={"mt-5 text-center text-3xl font-extrabold text-cyan-500"}>
         Dashboard
       </h1>
-      <h6 className="my-5 text-center text-xl font-bold ">
-        Welcome, {session.data?.user?.name} !
+      <h6 className="my-5 text-center text-xl font-semibold">
+        Welcome, {data?.user?.name} !
       </h6>
+      <h6 className="my-5 text-center font-semibold">{data?.user?.email}</h6>
 
       <div className="flex w-full justify-center">
         <Button

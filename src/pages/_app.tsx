@@ -3,18 +3,16 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { MantineProvider, createEmotionCache } from "@mantine/core";
+import localFont from "@next/font/local";
 
 const appendCache = createEmotionCache({ "key": "mantine", "prepend": false });
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
-import { Lato } from "@next/font/google";
 import RouterTransition from "../components/RouterTransistion";
 
-const lato = Lato({
-  weight: "400",
-  variable: "--font-inter",
-  subsets: ["latin"],
+const chromatica = localFont({
+  src: "../../public/fonts/Chromatica-Regular.woff2",
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -22,7 +20,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   "pageProps": { session, ...pageProps },
 }) => {
   return (
-    <main className={`${lato.className}`}>
+    <main className={`${chromatica.className}`}>
       <SessionProvider session={session}>
         <MantineProvider
           emotionCache={appendCache}
