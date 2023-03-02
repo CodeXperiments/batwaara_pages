@@ -14,8 +14,11 @@ import {
 } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import { BuiltInProviderType } from "next-auth/providers";
-import { Alert, Box, Input, PasswordInput } from "@mantine/core";
+import { Anchor, Box, Input, PasswordInput, Title } from "@mantine/core";
 import { ChangeEvent, useState } from "react";
+import Image from "next/image";
+import Button from "../../components/Buttons/Button";
+
 
 interface FormProps {
   email: string;
@@ -66,50 +69,86 @@ const SignIn: NextPage<
         <title>Login</title>
         <meta property="og:title" content="Login" key="title" />
       </Head>
-      <div className="flex h-screen flex-col items-center justify-center gap-4">
-        <Input.Wrapper label="Email" required>
+
+      <div className="flex h-screen flex-col items-center justify-center gap-4 " style={{ background: '#32B5AC' }}>
+        <Title order={1} color={"white"} align="left" >{'Log In'}</Title>
+
+        <Input.Wrapper required >
           <Input
+            style={{ width: '15rem', marginBottom: 15 }}
             name="email"
-            placeholder="example@gmail.com"
+            placeholder="Enter Email"
             variant="filled"
+            radius={"xl"}
+            size={'md'}
             onChange={handleChange}
             value={formValue.email}
+            icon={<Image src='/icons/mail.svg' height={15} width={15} alt="mail" />}
           />
 
           <PasswordInput
+            style={{ width: '15rem' }}
             name="password"
             placeholder="Password"
-            label="Password"
             value={formValue.password}
             onChange={handleChange}
             variant="filled"
-            width={500}
+            radius={"xl"}
+            size={'md'}
             required
+            icon={<Image src='/icons/lock.svg' height={15} width={15} alt="lock" />}
           />
         </Input.Wrapper>
 
-        <Box display={"flex"}>
-          <button
-            className="mr-4 flex items-center justify-center rounded-md bg-cyan-500 p-4 shadow-lg"
-            onClick={handleLogin}
-          >
-            <p className="text-slate-800">Login</p>
-          </button>
+        <Anchor
+          component="button"
+          type="button"
+          color="dark"
+          // onClick={() => toggle()}
+          size="xs"
+        >
+          {'Forgot Password?'}
+        </Anchor>
 
+        <Button
+          style={{ width: '10rem' }}
+          text="Log In"
+          variant="filled"
+          radius={"xl"}
+          color="dark"
+          onClick={handleLogin}
+        />
+
+
+        <Anchor
+          component="button"
+          type="button"
+          color="dark"
+          // onClick={() => toggle()}
+          size="xs"
+          underline
+        >
+          Don't have an account? Create Account
+        </Anchor>
+
+
+        <Box display={"flex"}>
           {providers &&
             Object.values(providers).map((provider) =>
               provider.name === "Credentials" ? null : (
                 <div key={provider.name}>
-                  <button
-                    className="flex items-center justify-center rounded-md bg-slate-200 p-4 shadow-lg"
+                  <Button
+                    text={`Sign in with ${provider.name}`}
+                    radius={"xl"}
+                    color="dark"
+                    variant="white"
+                    leftIcon={<Image src='/icons/google.svg' height={15} width={17} alt="google" />}
+                    style={{ width: '15rem' }}
                     onClick={async (): Promise<SignInResponse | undefined> =>
                       await signIn(provider.id, {
                         "callbackUrl": callback ?? "/",
                       })
-                    }
-                  >
-                    <p className="text-slate-800">{provider.name}</p>
-                  </button>
+                    } />
                 </div>
               )
             )}

@@ -6,7 +6,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 interface ButtonProps
   extends MantineButtonProps,
-    Omit<ComponentPropsWithoutRef<"button">, "color"> {
+  Omit<ComponentPropsWithoutRef<"button">, "color"> {
   text: string;
 }
 
