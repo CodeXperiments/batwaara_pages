@@ -70,9 +70,9 @@ const SignIn: NextPage<
         <meta property="og:title" content="Login" key="title" />
       </Head>
 
+      <div className="absolute -top-16 -left-16 w-32 h-32 bg-[#40F2A6] rounded-full" />
       <div className="flex h-screen flex-col items-center justify-center gap-4 " style={{ background: '#32B5AC' }}>
         <Title order={1} color={"white"} align="left" >{'Log In'}</Title>
-
         <Input.Wrapper required >
           <Input
             style={{ width: '15rem', marginBottom: 15 }}
@@ -154,6 +154,7 @@ const SignIn: NextPage<
             )}
         </Box>
       </div>
+      <div className="absolute -bottom-16 left-24 w-32 h-32 bg-[#40F2A6] rounded-full" />
     </>
   );
 };
